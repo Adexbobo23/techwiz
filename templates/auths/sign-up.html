@@ -1,0 +1,207 @@
+{% extends 'front-end/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Breadcrumb Section Start -->
+<section class="breadcrumb-section pt-0">
+    <div class="container-fluid-lg">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-contain">
+                    <h2 class="mb-2">Log In</h2>
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'home' %}">
+                                    <i class="fa-solid fa-house"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active">Log In</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- log in section start -->
+<section class="log-in-section background-image-2 section-b-space">
+    <div class="container-fluid-lg w-100">
+        <div class="row">
+            <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
+                <div class="image-contain">
+                    <img src="{% static '/front/assets/images/inner-page/log-in.png' %}" class="img-fluid" alt="">
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
+                <div class="log-in-box">
+                    <div class="log-in-title">
+                        <h3>Welcome To Fastkart</h3>
+                        <h4>Register Your Account</h4>
+                    </div>
+                    
+                    <div class="input-box">
+                        <!-- Use Django's form handling -->
+                        <form class="row g-4" method="POST">
+                            {% csrf_token %}  <!-- CSRF protection -->
+                    
+                            <!-- Display form errors -->
+                            {% if form.non_field_errors %}
+                            <div class="col-12">
+                                <div class="alert alert-danger">
+                                    {% for error in form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                    
+                            <!-- First Name field -->
+                            <div class="col-12">
+                                <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="First Name" value="{{ form.first_name.value|default:'' }}">
+                                    <label for="id_first_name">First Name</label>
+                                    {% if form.first_name.errors %}
+                                    <div class="text-danger">
+                                        {{ form.first_name.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Last Name field -->
+                            <div class="col-12">
+                                <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Last Name" value="{{ form.last_name.value|default:'' }}">
+                                    <label for="id_last_name">Last Name</label>
+                                    {% if form.last_name.errors %}
+                                    <div class="text-danger">
+                                        {{ form.last_name.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Username field -->
+                            <div class="col-12">
+                                <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="text" class="form-control" id="id_username" name="username" placeholder="Username" value="{{ form.username.value|default:'' }}">
+                                    <label for="id_username">Username</label>
+                                    {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        {{ form.username.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Email field -->
+                            <div class="col-12">
+                                <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="email" class="form-control" id="id_email" name="email" placeholder="Email Address" value="{{ form.email.value|default:'' }}">
+                                    <label for="id_email">Email Address</label>
+                                    {% if form.email.errors %}
+                                    <div class="text-danger">
+                                        {{ form.email.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Password1 field -->
+                            <div class="col-12">
+                                <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Password">
+                                    <label for="id_password1">Password</label>
+                                    {% if form.password1.errors %}
+                                    <div class="text-danger">
+                                        {{ form.password1.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Password2 field -->
+                            <div class="col-12">
+                                <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirm Password">
+                                    <label for="id_password2">Confirm Password</label>
+                                    {% if form.password2.errors %}
+                                    <div class="text-danger">
+                                        {{ form.password2.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Agreed to terms field -->
+                            <div class="col-12">
+                                <div class="form-check ps-0 m-0 remember-box">
+                                    <input class="checkbox_animated check-box" type="checkbox" id="id_agreed_to_terms" name="agreed_to_terms" {% if form.agreed_to_terms.value %}checked{% endif %}>
+                                    <label class="form-check-label" for="id_agreed_to_terms">I agree to the terms and conditions</label>
+                                    {% if form.agreed_to_terms.errors %}
+                                    <div class="text-danger">
+                                        {{ form.agreed_to_terms.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    
+                            <!-- Submit button -->
+                            <div class="col-12">
+                                <button class="btn btn-animation w-100 justify-content-center" type="submit">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Display other messages -->
+                    {% if messages %}
+                    <div class="alert alert-info">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+
+                    <div class="other-log-in">
+                        <h6>or</h6>
+                    </div>
+
+                    <div class="log-in-button">
+                        <ul>
+                            <li>
+                                <a href="https://www.google.com/" class="btn google-button w-100">
+                                    <img src="{% static '/front/assets/images/inner-page/google.png' %}" class="blur-up lazyload" alt="">
+                                    Log In with Google
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                    <img src="{% static '/front/assets/images/inner-page/facebook.png' %}" class="blur-up lazyload" alt="">
+                                    Log In with Facebook
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="other-log-in">
+                        <h6></h6>
+                    </div>
+
+                    <div class="sign-up-box">
+                        <h4>Don't have an account?</h4>
+                        <a href="{% url 'register' %}">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- log in section end -->
+
+{% endblock %}
